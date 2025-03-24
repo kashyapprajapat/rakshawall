@@ -23,7 +23,7 @@ jobs:
       - name: Create dist directory
         run: mkdir -p dist
       - name: Build Windows executable
-        run: pkg . --targets node16-win-x64 --output dist/rakshawall-windows.exe
+        run: pkg . --targets node16-windows-x64 --output dist/rakshawall-windows.exe
 
   build-linux:
     runs-on: ubuntu-latest

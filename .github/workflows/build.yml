@@ -2,110 +2,59 @@ name: Build RakshaWall
 
 on:
   push:
-    tags:
-      - 'v*'
+    branches: [main]
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 
 jobs:
   build-windows:
     runs-on: windows-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
+      - uses: actions/checkout@v3
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '16'
-          cache: 'npm'
-
       - name: Install dependencies
-        run: npm ci
-
+        run: npm install
       - name: Install pkg globally
         run: npm install -g pkg
-
+      - name: Create dist directory
+        run: mkdir -p dist
       - name: Build Windows executable
         run: pkg . --targets node16-win-x64 --output dist/rakshawall-windows.exe
-
-      - name: Upload Windows artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: rakshawall-windows
-          path: dist/rakshawall-windows.exe
 
   build-linux:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
+      - uses: actions/checkout@v3
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '16'
-          cache: 'npm'
-
       - name: Install dependencies
-        run: npm ci
-
+        run: npm install
       - name: Install pkg globally
         run: npm install -g pkg
-
+      - name: Create dist directory
+        run: mkdir -p dist
       - name: Build Linux executable
         run: pkg . --targets node16-linux-x64 --output dist/rakshawall-linux
-
-      - name: Upload Linux artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: rakshawall-linux
-          path: dist/rakshawall-linux
 
   build-macos:
     runs-on: macos-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
+      - uses: actions/checkout@v3
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '16'
-          cache: 'npm'
-
       - name: Install dependencies
-        run: npm ci
-
+        run: npm install
       - name: Install pkg globally
         run: npm install -g pkg
-
+      - name: Create dist directory
+        run: mkdir -p dist
       - name: Build macOS executable
         run: pkg . --targets node16-macos-x64 --output dist/rakshawall-macos
-
-      - name: Upload macOS artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: rakshawall-macos
-          path: dist/rakshawall-macos
-
-  create-release:
-    needs: [build-windows, build-linux, build-macos]
-    runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/tags/')
-    steps:
-      - name: Download all artifacts
-        uses: actions/download-artifact@v3
-        with:
-          path: ./dist
-
-      - name: Create Release
-        uses: softprops/action-gh-release@v1
-        with:
-          files: |
-            ./dist/rakshawall-windows/rakshawall-windows.exe
-            ./dist/rakshawall-linux/rakshawall-linux
-            ./dist/rakshawall-macos/rakshawall-macos
-          draft: false
-          prerelease: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-windows:
+build-windows:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
@@ -21,9 +21,10 @@ jobs:
       - name: Install pkg globally
         run: npm install -g pkg
       - name: Create dist directory
-        run: mkdir -p dist
+        run: mkdir dist
       - name: Build Windows executable
-        run: pkg . --targets node16-windows-x64 --output dist/rakshawall-windows.exe
+        run: pkg . --targets node16-win-x64 --output dist/rakshawall-windows.exe --force
+
 
   build-linux:
     runs-on: ubuntu-latest

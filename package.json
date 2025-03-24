@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "A lightweight host-based firewall built with JavaScript (Node.js) to monitor and control network traffic. It supports IP blocking, port filtering, and rule-based security for Windows, Linux, and macOS. Easily deployable as a standalone executable (.exe/.bin) without requiring Node.js.",
   "main": "index.js",
+  "bin": {
+    "rakshawall": "./server.js"
+  },
   "scripts": {
     "start": "node server.js",
     "install-service": "node install-service.js",

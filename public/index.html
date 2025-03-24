@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RakshaWall Firewall</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>RakshaWall</h1>
+    <p>Host-based JavaScript Firewall</p>
+  </header>
+  
+  <main>
+    <section class="control-panel">
+      <h2>Add Blocking Rule</h2>
+      <form id="rule-form">
+        <div class="form-group">
+          <label for="rule-name">Rule Name:</label>
+          <input type="text" id="rule-name" required placeholder="Descriptive name for the rule">
+        </div>
+        <div class="form-group">
+          <label for="ip-address">IP Address:</label>
+          <input type="text" id="ip-address" required placeholder="IP to block (e.g., 192.168.1.100)">
+        </div>
+        <button type="submit">Add Rule</button>
+      </form>
+    </section>
+    
+    <section class="rule-list">
+      <h2>Current Rules</h2>
+      <div id="rules-container">
+        <p>Loading rules...</p>
+      </div>
+    </section>
+    
+    <section class="connection-list">
+      <h2>Active Connections</h2>
+      <button id="refresh-connections">Refresh</button>
+      <div id="connections-container">
+        <p>Loading connections...</p>
+      </div>
+    </section>
+  </main>
+  
+  <footer>
+    <p>RakshaWall &copy; 2025</p>
+  </footer>
+  
+  <script src="app.js"></script>
+</body>
+</html>

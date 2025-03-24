@@ -8,22 +8,22 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-windows:
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16'
-      - name: Install dependencies
-        run: npm install
-      - name: Install pkg globally
-        run: npm install -g pkg
-      - name: Create dist directory
-        run: mkdir dist
-      - name: Build Windows executable
-        run: pkg . --targets node16-win-x64 --output dist/rakshawall-windows.exe --force
+  # build-windows:
+  #   runs-on: windows-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - name: Setup Node.js
+  #       uses: actions/setup-node@v3
+  #       with:
+  #         node-version: '16'
+  #     - name: Install dependencies
+  #       run: npm install
+  #     - name: Install pkg globally
+  #       run: npm install -g pkg
+  #     - name: Create dist directory
+  #       run: mkdir dist
+  #     - name: Build Windows executable
+  #       run: pkg . --targets node16-win-x64 --output dist/rakshawall-windows.exe --force
 
   build-linux:
     runs-on: ubuntu-latest
